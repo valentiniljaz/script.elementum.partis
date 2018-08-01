@@ -1,6 +1,6 @@
 ## Testing
 
-You can test only the Partia class without using the whole Kodi stack.
+You can test only the Partis class without using the whole Kodi stack.
 
 ### Prerequisites
 
@@ -13,7 +13,7 @@ chmod +x run.py
 Before running specify your Partis username and password:
 
 ```
-export PARTIS_USERNAME=>YOUR_USERNAME && export PARTIS_PASSWORD=YOUR_PASSWORD
+export PARTIS_USERNAME=YOUR_USERNAME && export PARTIS_PASSWORD=YOUR_PASSWORD
 ```
 
 ### Run
