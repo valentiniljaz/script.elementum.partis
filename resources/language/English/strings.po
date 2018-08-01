@@ -20,7 +20,7 @@ msgstr ""
 
 
 msgctxt "#32001"
-msgid "Account settings"
+msgid "Partis account"
 msgstr ""
 
 msgctxt "#32011"

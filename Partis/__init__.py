@@ -110,7 +110,8 @@ class Partis:
                 "provider": _Partis__NAME,
                 "icon": 'logo.png',
                 "seeds": seeders,
-                "peers": peers
+                "peers": peers,
+                "is_private": True
             })
 
         return results
