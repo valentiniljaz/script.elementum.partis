@@ -1,6 +1,6 @@
 # Partis.si provider for Elementum
 
-Add-on scrapes www.partis.si for torrent links and feeds them into Elementum.
+Add-on scrapes www.partis.si for torrent links and feeds them into [Elementum](https://github.com/elgatito/plugin.video.elementum).
 
 ## Installation
 
