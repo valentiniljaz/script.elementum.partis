@@ -35,8 +35,16 @@ msgctxt "#32002"
 msgid "IP blocking"
 msgstr ""
 
-msgctxt "#32021"
-msgid "Elementun uses a list of anti-P2P IPs which are blocked from [CR] access. List also contains the IP that Partis uses, making [CR] the whole provider not working at all. In order to get the [CR] Partis provider working you need to disable the IP blocking [CR] used in Elementum. You do this at your own risk!"
+msgctxt "#320211"
+msgid "Elementun uses a list of anti-P2P IPs which are blocked from access. [CR] List also contains the IP that Partis uses, making 
+msgstr ""
+
+msgctxt "#320212"
+msgid " the whole provider not working at all. In order to get the Partis [CR] provider working you need to disable the IP blocking"
+msgstr ""
+
+msgctxt "#320213"
+msgid " used in Elementum. You do this at your own risk!"
 msgstr ""
 
 msgctxt "#32022"

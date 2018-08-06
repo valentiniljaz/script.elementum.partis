@@ -5,7 +5,9 @@
         <setting label="32012" type="text" id="password" option="hidden" enable="!eq(-1,)" default=""/>
     </category>
     <category label="32002">
-        <setting label="32021" type="text" enable="false"/>
+        <setting label="320211" type="text" enable="false"/>
+        <setting label="320212" type="text" enable="false"/>
+        <setting label="320213" type="text" enable="false"/>
         <setting label="32022" type="action" action="RunScript(script.elementum.partis, checkIpBlockingStatus)"/>
         <setting label="32023" type="action" action="RunScript(script.elementum.partis, disableIpBlocking)"/>
         <setting label="32024" type="action" action="RunScript(script.elementum.partis, enableIpBlocking)"/>
