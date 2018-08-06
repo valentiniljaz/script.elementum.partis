@@ -1,8 +1,43 @@
 # -*- coding: utf-8 -*-
 
 from Partis import Partis
-from Partis.utils import notify, decorateTorrents
+from Partis.utils import notify, decorateTorrents, ADDON_PATH
 from elementum.provider import register, get_setting, log
+import sys, os
+
+# Handle settings callbacks
+if len(sys.argv) > 1:
+    method = sys.argv[1]
+    try:
+        iplistPath = os.path.join(ADDON_PATH, '..', 'plugin.video.elementum', 'resources', 'misc', 'pack-iplist')
+        if method == 'checkIpBlockingStatus':
+            if os.path.isfile(iplistPath):
+                notify('IP blocking is ENABLED within Elementum')
+            else:
+                notify('IP blocking is DISABLED within Elementum')
+            sys.exit()
+        elif method == 'disableIpBlocking':
+            if os.path.isfile(iplistPath):
+                os.rename(iplistPath, iplistPath+'.backup')
+                notify('IP blocking is now DISABLED within Elementum')
+            else:
+                notify('IP blocking is already DISABLED within Elementum')
+            sys.exit()
+        elif method == 'enableIpBlocking':
+            if os.path.isfile(iplistPath):
+                notify('IP blocking is already ENABLED within Elementum')
+            else:
+                if os.path.isfile(iplistPath+'.backup'):
+                    os.rename(iplistPath+'.backup', iplistPath)
+                    notify('IP blocking is now ENABLED within Elementum')
+                else:
+                    notify('IP blocking cannot be enabled since the original list is no longer available')
+            sys.exit()
+    except Exception as e:
+        log.debug(getattr(e, 'message', repr(e)))
+        notify(getattr(e, 'message', repr(e)))
+        pass
+
 
 def do_search(query, category = None):
 	try:
