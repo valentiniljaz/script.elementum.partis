@@ -68,12 +68,13 @@ class Partis:
         results = []
         # Login
         cookies = self.__login()
+        # Prepare cookie string for resolving torrent links
         cookieStr = ''
         for cookie in cookies:
             if cookie.name == 'auth_token' or cookie.name == '_partis16':
                 cookieStr += cookie.name+'='+cookie.value+';'
-        # First request to /torrent/show otherwise it forces a redirect
-        loginResponse, _ = self.__request(_Partis__SHOW_URL, {}, cookies, {}, None, 'GET')
+        # First request to /torrent/show, otherwise it forces a redirect
+        showResponse, _ = self.__request(_Partis__SHOW_URL, {}, cookies, {}, None, 'GET')
         # Do actual search
         categories = ''
         if category:
@@ -87,11 +88,12 @@ class Partis:
         listeks = searchDom.find_all(tag='div', select=('class', 'listek'))
         for listek in listeks:
             # Parse basic info
-            torrentId = listek(tag='div', select=('class', 'likona'), attribute='id')
+            tId = listek(tag='div', select=('class', 'likona'), attribute='id')
             listeklink = listek.find_once(tag='div', select=('class', 'listeklink'))
-            name = listeklink(tag='a')
+            tName = listeklink(tag='a')
+            # Get donwload link
             data3t = listek.find_once(tag='div', select=('class', 'data3t'))
-            dwldLink = data3t(tag='a', attribute='href')
+            tDldLink = data3t(tag='a', attribute='href')
             size = listek(tag='div', select=('class', 'datat'), order=1)
             try:
             	seeders = int(listek(tag='div', select=('class', 'datat'), order=2))
@@ -103,15 +105,16 @@ class Partis:
             	peers = 0
 
             results.append({
-                "name": name,
-                "uri": _Partis__BASE_URL+dwldLink+'|Cookie='+cookieStr,
-                "info_hash": torrentId,
+                "name": tName,
+                "uri": _Partis__BASE_URL+tDldLink+'|Cookie='+cookieStr,
+                "info_hash": 'PARTIS_'+tId,
                 "size": size,
                 "provider": _Partis__NAME,
                 "icon": 'logo.png',
                 "seeds": seeders,
                 "peers": peers,
-                "is_private": True
+                "is_private": True,
+                "Multi": True
             })
 
         return results

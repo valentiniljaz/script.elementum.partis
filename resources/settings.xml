@@ -4,4 +4,10 @@
         <setting label="32011" type="text" id="username" default=""/>
         <setting label="32012" type="text" id="password" option="hidden"  enable="!eq(-1,)" default=""/>
     </category>
+    <category label="32002">
+        <setting label="32021" type="lsep"/>
+        <setting label="32022" type="action" action="RunScript(script.elementum.partis, checkIpBlockingStatus)"/>
+        <setting label="32023" type="action" action="RunScript(script.elementum.partis, disableIpBlocking)"/>
+        <setting label="32024" type="action" action="RunScript(script.elementum.partis, enableIpBlocking)"/>
+    </category>
 </settings>

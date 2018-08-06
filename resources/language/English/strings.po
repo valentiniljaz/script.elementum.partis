@@ -30,3 +30,24 @@ msgstr ""
 msgctxt "#32012"
 msgid "Password"
 msgstr ""
+
+msgctxt "#32002"
+msgid "IP blocking"
+msgstr ""
+
+msgctxt "#32021"
+msgid "Elementun uses a list of anti-P2P IPs which are blocked from access. List also contains the IP that Partis uses, making the whole provider not working at all." 
+" In order to get the Partis provider working you need to disable the IP blocking used in Elementum. You do this at your own risk!"
+msgstr ""
+
+msgctxt "#32022"
+msgid "Check IP blocking status"
+msgstr ""
+
+msgctxt "#32023"
+msgid "Disable IP blocking"
+msgstr ""
+
+msgctxt "#32024"
+msgid "Enable IP blocking"
+msgstr ""
