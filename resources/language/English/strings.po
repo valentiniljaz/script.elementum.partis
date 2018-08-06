@@ -44,7 +44,8 @@ msgid " the whole provider not working at all. In order to get the Partis [CR] p
 msgstr ""
 
 msgctxt "#320213"
-msgid " used 
+msgid " used in Elementum. You do this at your own risk!"
+msgstr ""
 
 msgctxt "#32022"
 msgid "Check IP blocking status"
