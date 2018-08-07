@@ -1,13 +1,16 @@
 ## Testing
 
-You can test only the Partis class without using the whole Kodi stack.
+Scripts for testing specific class:
+* `partis_test.py` >> Partis class
+* `iplist_test.py` >> iplist class
 
 ### Prerequisites
 
-Add executable permissions to `run.py`
+Add executable permissions
 
 ```
-chmod +x run.py
+chmod +x partis_test.py
+chmod +x iplist_test.py
 ```
 
 Before running specify your Partis username and password:
@@ -21,5 +24,6 @@ export PARTIS_USERNAME=YOUR_USERNAME && export PARTIS_PASSWORD=YOUR_PASSWORD
 From root folder:
 
 ```
-./test/run.py
+./test/partis_test.py
+./test/iplist_test.py
 ```

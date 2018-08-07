@@ -3,35 +3,49 @@
 from Partis import Partis
 from Partis.utils import notify, decorateTorrents, ADDON_PATH
 from elementum.provider import register, get_setting, log
-import sys, os
+from iplist import iplist
+import sys, os, datetime
 
 # Handle settings callbacks
 if len(sys.argv) > 1:
     method = sys.argv[1]
     try:
-        iplistPath = os.path.join(ADDON_PATH, '..', 'plugin.video.elementum', 'resources', 'misc', 'pack-iplist')
-        if method == 'checkIpBlockingStatus':
-            if os.path.isfile(iplistPath):
-                notify('IP blocking is ENABLED within Elementum')
-            else:
-                notify('IP blocking is DISABLED within Elementum')
-            sys.exit()
-        elif method == 'disableIpBlocking':
-            if os.path.isfile(iplistPath):
-                os.rename(iplistPath, iplistPath+'.backup')
-                notify('IP blocking is now DISABLED within Elementum')
-            else:
-                notify('IP blocking is already DISABLED within Elementum')
-            sys.exit()
-        elif method == 'enableIpBlocking':
-            if os.path.isfile(iplistPath):
-                notify('IP blocking is already ENABLED within Elementum')
-            else:
-                if os.path.isfile(iplistPath+'.backup'):
-                    os.rename(iplistPath+'.backup', iplistPath)
-                    notify('IP blocking is now ENABLED within Elementum')
+        eIplistPath = os.path.join(ADDON_PATH, '..', 'plugin.video.elementum', 'resources', 'misc', 'pack-iplist')
+        if method == 'removeBlockedIps':
+            if os.path.isfile(eIplistPath):
+                notify("Checkig for blocked Partis IPs ...")
+
+                eIplist = iplist()
+
+                PARTIS_DOMAINS = ["announce.partis.si", "announce.partis.net", "announce.partis.my", "announce.partis.rs"]
+                partisIpv6s = []
+                for domain in PARTIS_DOMAINS:
+                    try:
+                        ipv6 = eIplist.getIpv6FromDomain(domain)
+                        partisIpv6s.append(ipv6)
+                    except Exception:
+                        pass
+                
+                eRanges = eIplist.parseFromFile(eIplistPath)
+
+                found = False
+                for ipv6 in partisIpv6s:
+                    foundRange, foundPos, eRanges = eIplist.findAndRemove(ipv6, eRanges)
+                    if foundRange:
+                        found = True
+
+                if found:
+                    now = str(datetime.datetime.now())
+                    now = now.replace(" ", "--")
+                    now = now.replace(":", "-")
+                    now = now.replace(".", "-")
+                    os.rename(eIplistPath, eIplistPath + '.backup_' + now)
+                    eIplist.writeToFile(eIplist, eRanges)
+                    notify("Partis IPs were removed from blocked list in Elementum. Restart KODI!")
                 else:
-                    notify('IP blocking cannot be enabled since the original list is no longer available')
+                    notify("IP blocking is ENABLED but Partis IPs are not blocked. You\'re good!")
+            else:
+                notify("IP blocking is DISABLED within Elementum. You\'re good!")
             sys.exit()
     except Exception as e:
         log.debug(getattr(e, 'message', repr(e)))

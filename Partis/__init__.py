@@ -114,7 +114,7 @@ class Partis:
                 "seeds": seeders,
                 "peers": peers,
                 "is_private": True,
-                "Multi": True
+                "Multi": False
             })
 
         return results

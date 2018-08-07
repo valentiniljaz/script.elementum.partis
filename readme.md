@@ -4,6 +4,7 @@ Add-on scrapes www.partis.si for torrent links and feeds them into [Elementum](h
 
 ## Installation
 
+* install [Elementum](https://github.com/elgatito/plugin.video.elementum)
 * enable unknown sources within your Kodi installation
 * download ZIP from this repo
 * use "Install from zip"
@@ -15,6 +16,8 @@ https://github.com/scakemyer/script.quasar.dummy
 https://github.com/elgatito/script.elementum.burst
 
 https://github.com/elgatito/plugin.video.elementum
+
+https://github.com/anacrolix/torrent
 
 ## Disclaimer
 
