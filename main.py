@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from Partis import Partis
-from kodi_utils import notify, ADDON_PATH, ADDON_NAME
+from kodi_utils import notify, notice, ADDON_PATH, ADDON_NAME
 from elementum.provider import register, get_setting, log
 from iplist import iplist
 import sys, os, datetime
@@ -64,6 +64,7 @@ if len(sys.argv) > 1:
 
 # Handles searches by Elementum
 def do_search(query, category = None):
+    notice('Search query: ' + str(query))
     try:
         partis = Partis(get_setting('username', unicode), get_setting('password', unicode))
         return partis.updateIconPath(partis.search(query, category), os.path.join(ADDON_PATH, 'Partis'))
@@ -73,9 +74,12 @@ def do_search(query, category = None):
         return []
 
 # Raw search
-# query is always a string
+# {
+#    "query": "rampage",
+#    "proxy_url"; ""
+# }
 def search(query):
-    return do_search(query)
+    return do_search("%(query)s" % query)
 
 # Movie Payload Sample
 # Note that "titles" keys are countries, not languages

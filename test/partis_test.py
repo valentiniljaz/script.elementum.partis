@@ -18,7 +18,10 @@ print ""
 
 # Tests
 pp = pprint.PrettyPrinter()
-partis = Partis(os.environ['PARTIS_USERNAME'], os.environ['PARTIS_PASSWORD'])
+try:
+    partis = Partis(os.environ['PARTIS_USERNAME'], os.environ['PARTIS_PASSWORD'])
+except Exception as e:
+    print getattr(e, 'message', repr(e))
 
 test = "Overboard 2018"
 print "Test for movie: " +test+ " ..."
@@ -35,6 +38,12 @@ print ""
 test = "The Big Bang Theory S10E01"
 print "Test for series: " +test+ " ..."
 torrents = partis.search(test, 'series')
+pp.pprint(torrents)
+print ""
+
+test = "Hot Summer Nights"
+print "Test for custom search: " +test+ " ..."
+torrents = partis.search(test)
 pp.pprint(torrents)
 print ""
 

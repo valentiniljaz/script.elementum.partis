@@ -30,3 +30,6 @@ def notify(message, image=None):
     dialog = xbmcgui.Dialog()
     dialog.notification(ADDON_NAME, message, icon=image, sound=False)
     del dialog
+
+def notice(message):
+    xbmc.log('[script.elementum.partis] >> ' + message, xbmc.LOGNOTICE)
