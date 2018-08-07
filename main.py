@@ -7,7 +7,7 @@ from iplist import iplist
 import sys, os, datetime
 import xbmcgui
 
-# Handle settings callbacks
+# Handles settings callbacks
 if len(sys.argv) > 1:
     method = sys.argv[1]
     try:
@@ -15,7 +15,7 @@ if len(sys.argv) > 1:
         if method == 'removeBlockedIps':
             if os.path.isfile(eIplistPath):
                 dialog = xbmcgui.DialogProgress()
-                line1 = "Checkig for blocked Partis IPs"
+                line1 = "Checking for blocked Partis IPs"
                 dialog.create(ADDON_NAME, line1)
 
                 eIplist = iplist()
@@ -29,7 +29,7 @@ if len(sys.argv) > 1:
                     except Exception:
                         pass
                 
-                dialog.update(15, line1, "Parsing current block list ...")
+                dialog.update(15, line1, "Parsing current list ...")
                 eRanges = eIplist.parseFromFile(eIplistPath)
 
                 dialog.update(50, line1, "Looking for Partis IPs in the list ...")
@@ -62,7 +62,7 @@ if len(sys.argv) > 1:
         notify(getattr(e, 'message', repr(e)))
         pass
 
-
+# Handles searches by Elementum
 def do_search(query, category = None):
     try:
         partis = Partis(get_setting('username', unicode), get_setting('password', unicode))
