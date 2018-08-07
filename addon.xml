@@ -9,7 +9,7 @@
     </extension>
     <extension point="xbmc.addon.metadata">
         <summary lang="en">Partis torrents provider for Elementum</summary>
-        <description lang="en">Add-on provides torrent links for Elementum</description>
+        <description lang="en">Add-on scrapes www.partis.si for torrent links and feeds them into Elementum.</description>
         <disclaimer lang="en">The author does not host or distribute any of the content displayed by this addon. The author does not have any affiliation with the content providers.</disclaimer>
         <source>https://github.com/valentiniljaz/script.elementum.partis</source>
         <assets>
