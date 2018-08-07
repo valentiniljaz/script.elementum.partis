@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 
 from Partis import Partis
-from Partis.utils import notify, decorateTorrents, ADDON_PATH
+from kodi_utils import notify, ADDON_PATH, ADDON_NAME
 from elementum.provider import register, get_setting, log
 from iplist import iplist
 import sys, os, datetime
+import xbmcgui
 
 # Handle settings callbacks
 if len(sys.argv) > 1:
@@ -13,7 +14,9 @@ if len(sys.argv) > 1:
         eIplistPath = os.path.join(ADDON_PATH, '..', 'plugin.video.elementum', 'resources', 'misc', 'pack-iplist')
         if method == 'removeBlockedIps':
             if os.path.isfile(eIplistPath):
-                notify("Checkig for blocked Partis IPs ...")
+                dialog = xbmcgui.DialogProgress()
+                line1 = "Checkig for blocked Partis IPs"
+                dialog.create(ADDON_NAME, line1)
 
                 eIplist = iplist()
 
@@ -26,8 +29,10 @@ if len(sys.argv) > 1:
                     except Exception:
                         pass
                 
+                dialog.update(15, line1, "Parsing current block list ...")
                 eRanges = eIplist.parseFromFile(eIplistPath)
 
+                dialog.update(50, line1, "Looking for Partis IPs in the list ...")
                 found = False
                 for ipv6 in partisIpv6s:
                     foundRange, foundPos, eRanges = eIplist.findAndRemove(ipv6, eRanges)
@@ -35,14 +40,19 @@ if len(sys.argv) > 1:
                         found = True
 
                 if found:
+                    dialog.update(70, line1, "Writing updated list ...")
                     now = str(datetime.datetime.now())
                     now = now.replace(" ", "--")
                     now = now.replace(":", "-")
                     now = now.replace(".", "-")
                     os.rename(eIplistPath, eIplistPath + '.backup_' + now)
-                    eIplist.writeToFile(eIplist, eRanges)
+                    eIplist.writeToFile(eIplistPath, eRanges)
+                    dialog.close()
+                    del dialog
                     notify("Partis IPs were removed from blocked list in Elementum. Restart KODI!")
                 else:
+                    dialog.close()
+                    del dialog
                     notify("IP blocking is ENABLED but Partis IPs are not blocked. You\'re good!")
             else:
                 notify("IP blocking is DISABLED within Elementum. You\'re good!")
@@ -54,18 +64,18 @@ if len(sys.argv) > 1:
 
 
 def do_search(query, category = None):
-	try:
-		partis = Partis(get_setting('username', unicode), get_setting('password', unicode))
-		return decorateTorrents(partis.search(query, category))
-	except Exception as e:
-		log.debug(getattr(e, 'message', repr(e)))
-		notify(getattr(e, 'message', repr(e)))
-		return []
+    try:
+        partis = Partis(get_setting('username', unicode), get_setting('password', unicode))
+        return partis.updateIconPath(partis.search(query, category), os.path.join(ADDON_PATH, 'Partis'))
+    except Exception as e:
+        log.debug(getattr(e, 'message', repr(e)))
+        notify(getattr(e, 'message', repr(e)))
+        return []
 
 # Raw search
 # query is always a string
 def search(query):
-	return do_search(query)
+    return do_search(query)
 
 # Movie Payload Sample
 # Note that "titles" keys are countries, not languages

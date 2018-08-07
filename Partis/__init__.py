@@ -4,6 +4,7 @@ import urllib2
 from urllib import urlencode
 from cookielib import CookieJar
 from parser.ehp import Html
+import os
 
 _Partis__NAME = 'Partis'
 _Partis__USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.66 Safari/537.36'
@@ -118,3 +119,8 @@ class Partis:
             })
 
         return results
+
+    def updateIconPath(self, torrents, iconPath):
+        for torrent in torrents:
+            torrent['icon'] = os.path.join(iconPath,  torrent['icon'])
+        return torrents

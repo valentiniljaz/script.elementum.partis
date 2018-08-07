@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Partis utilities
+Kodi utilities
 """
 
 import os
@@ -30,12 +30,3 @@ def notify(message, image=None):
     dialog = xbmcgui.Dialog()
     dialog.notification(ADDON_NAME, message, icon=image, sound=False)
     del dialog
-
-def decorateTorrents(torrents):
-    """ Adds additional info to torrents list (e.g. provides proper path to logo)
-    Args:
-        torrents (list): List of torrents
-    """
-    for torrent in torrents:
-        torrent['icon'] = os.path.join(ADDON_PATH, 'Partis',  torrent['icon'])
-    return torrents
