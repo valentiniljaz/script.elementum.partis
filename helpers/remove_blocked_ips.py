@@ -12,15 +12,16 @@ sys.path.insert(0, parentdir)
 
 import xbmcgui
 from iplist import iplist
-from kodi_utils import notify, ADDON_PATH
+from kodi_utils import notify, ADDON_PATH, ADDON_NAME
 import datetime
 
 def remove_blocked_ips():
     eIplistPath = os.path.join(ADDON_PATH, '..', 'plugin.video.elementum', 'resources', 'misc', 'pack-iplist')
     if os.path.isfile(eIplistPath):
         dialog = xbmcgui.DialogProgress()
-        line1 = "Checking for blocked Partis IPs - it can take couple of minutes."
-        dialog.create(ADDON_NAME, line1)
+        line1 = "Checking for blocked Partis IPs"
+        line2 = "It can take couple of minutes"
+        dialog.create(ADDON_NAME, line1, line2)
 
         eIplist = iplist()
 
@@ -33,10 +34,10 @@ def remove_blocked_ips():
             except Exception:
                 pass
         
-        dialog.update(15, line1, "Parsing current list ...")
+        dialog.update(15, line1, line2, "Parsing current list ...")
         eRanges = eIplist.parseFromFile(eIplistPath)
 
-        dialog.update(50, line1, "Looking for Partis IPs in the list and removing them ...")
+        dialog.update(50, line1, line2, "Looking for Partis IPs in the list and removing them ...")
         found = False
         for ipv6 in partisIpv6s:
             foundRange, foundPos, eRanges = eIplist.findAndRemove(ipv6, eRanges)
@@ -44,7 +45,7 @@ def remove_blocked_ips():
                 found = True
 
         if found:
-            dialog.update(70, line1, "Saving updated list ...")
+            dialog.update(75, line1, line2, "Saving updated list ...")
             now = str(datetime.datetime.now())
             now = now.replace(" ", "--")
             now = now.replace(":", "-")
