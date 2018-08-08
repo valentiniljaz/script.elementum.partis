@@ -11,8 +11,8 @@ import xbmcgui
 if len(sys.argv) > 1:
     method = sys.argv[1]
     try:
-        eIplistPath = os.path.join(ADDON_PATH, '..', 'plugin.video.elementum', 'resources', 'misc', 'pack-iplist')
         if method == 'removeBlockedIps':
+            eIplistPath = os.path.join(ADDON_PATH, '..', 'plugin.video.elementum', 'resources', 'misc', 'pack-iplist')
             if os.path.isfile(eIplistPath):
                 dialog = xbmcgui.DialogProgress()
                 line1 = "Checking for blocked Partis IPs"
