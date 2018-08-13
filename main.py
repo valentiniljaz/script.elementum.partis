@@ -23,6 +23,7 @@ def do_search(query, category = None):
     notice('Search query: ' + str(query))
     try:
         partis = Partis(get_setting('username', unicode), get_setting('password', unicode))
+        notify('Searching ...')
         return partis.updateIconPath(partis.search(query, category), os.path.join(ADDON_PATH, 'Partis'))
     except Exception as e:
         log.debug(getattr(e, 'message', repr(e)))
