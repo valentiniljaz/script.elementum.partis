@@ -22,6 +22,7 @@ try:
     partis = Partis(os.environ['PARTIS_USERNAME'], os.environ['PARTIS_PASSWORD'])
 except Exception as e:
     print getattr(e, 'message', repr(e))
+    raise
 
 test = "Overboard 2018"
 print "Test for movie: " +test+ " ..."

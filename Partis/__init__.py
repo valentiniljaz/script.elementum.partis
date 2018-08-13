@@ -8,9 +8,11 @@ import os
 
 _Partis__NAME = 'Partis'
 _Partis__USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.66 Safari/537.36'
-_Partis__BASE_URL = 'http://www.partis.si'
+_Partis__BASE_URL = 'https://www.partis.si'
+_Partis__BASE_URL_INSECURE = 'http://www.partis.si'
 _Partis__LOGIN_URL = _Partis__BASE_URL + '/user/login'
-_Partis__LOGIN_OK_URL= _Partis__BASE_URL + '/prva'
+_Partis__LOGIN_OK_URL = _Partis__BASE_URL + '/prva'
+_Partis__LOGIN_OK_URL_INSECURE = _Partis__BASE_URL_INSECURE + '/prva'
 _Partis__SHOW_URL = _Partis__BASE_URL + '/torrent/show'
 _Partis__NFO_URL = _Partis__BASE_URL + '/torrent/nfo'
 _Partis__SEARCH_URL = _Partis__BASE_URL + '/brskaj'
@@ -61,7 +63,7 @@ class Partis:
         response, cookies = self.__request(_Partis__LOGIN_URL, {}, {}, {}, 'user[username]='+self.__username+'&user[password]='+self.__password, 'POST')
         if response.code == 302:
             redirection_target = response.headers['Location']
-            if redirection_target == _Partis__LOGIN_OK_URL:
+            if redirection_target == _Partis__LOGIN_OK_URL  or redirection_target == _Partis__LOGIN_OK_URL_INSECURE:
                 return cookies
         raise Exception('Login failed!')
 
